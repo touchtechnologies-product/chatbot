@@ -1,8 +1,8 @@
 package chatbot
 
 import (
-	"chatbot/common"
-	"chatbot/dialogflow"
+	"github.com/touchtechnologies-product/chatbot/common"
+	"github.com/touchtechnologies-product/chatbot/dialogflow"
 	"errors"
 )
 

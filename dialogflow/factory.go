@@ -1,7 +1,7 @@
 package dialogflow
 
 import (
-	"chatbot/common"
+	"github.com/touchtechnologies-product/chatbot/common"
 	"context"
 )
 
