@@ -22,17 +22,17 @@ func TestTestSuite(t *testing.T) {
 }
 
 func (suite *TestSuite) TestAnswerQuestion() {
+	ctx := context.Background()
 	fac, err := GetFactory("dialogflow")
 	suite.NoError(err)
-	bot, err := fac.MakeChatBot(context.Background())
+	bot, err := fac.LoadChatBot(ctx, "tag-health-project")
 	suite.NoError(err)
-	time.Sleep(15*time.Second)
-	ans := bot.AnswerQuestionByLangCode(context.Background(), "Your name is?", "en")
+	time.Sleep(15 * time.Second)
+	ans := bot.AnswerQuestionByLangCode(context.Background(),"6ba7b810-9dad-11d1-80b4-00c04fd430c8", "age", "en")
 
 	contains := []string{
-		"My name is Dialogflow!",
-		"I have a name Dialogflow!",
-		"Dialogflow is my name",
+		"what is your age?",
+		"how ur age",
 	}
 	suite.Contains(contains, ans)
 }

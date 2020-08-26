@@ -2,10 +2,8 @@
 
 1. Dialogflow 
     1. Get agent by name
-    2. List intents
-    3. Get intent by name
-    4. Create intent
-    5. Detect intent from sentence
+    2. Create intent
+    3. Detect intent from sentence
 
 <strong>Note: Dialog API Currently does not support agent and fulfilment creation</strong>
 
@@ -14,16 +12,15 @@
 ```
 _ = os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", [path to credentials])
 
+ctx := context.Background()
 fac, err := GetFactory("dialogflow")
 if err != nil {
-    // TODO handle error
+ //TO DO handle error
 }
-
-ctx := context.Background()
-bot, err := fac.MakeChatBot(ctx)
+bot, err := fac.LoadChatBot(ctx, "project-name")
 if err != nil {
-    // TODO handle error
+ //TO DO handle error
 }
 
-ans := bot.AnswerQuestionByLangCode(ctx, "What is your name?", "en")
+ans := bot.AnswerQuestionByLangCode(context.Background(),"sessionID", "who are u..?", "en")
 ```

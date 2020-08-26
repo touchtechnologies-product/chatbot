@@ -1,9 +1,10 @@
 package chatbot
 
 import (
+	"errors"
+
 	"github.com/touchtechnologies-product/chatbot/common"
 	"github.com/touchtechnologies-product/chatbot/dialogflow"
-	"errors"
 )
 
 func GetFactory(botType string) (fac common.Factory, err error) {

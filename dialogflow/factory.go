@@ -1,33 +1,19 @@
 package dialogflow
 
 import (
-	"github.com/touchtechnologies-product/chatbot/common"
 	"context"
+
+	"github.com/touchtechnologies-product/chatbot/common"
 )
 
-type Factory struct {
-}
+type Factory struct{}
 
-func (fac Factory) MakeChatBot(ctx context.Context) (bot common.Bot, err error) {
+func (fac Factory) LoadChatBot(ctx context.Context, ID string) (bot common.Bot, err error) {
 	dfBot := &Bot{
-		project: "tag-health-project",
-		trainingPhrases: []string{
-			"What is your name?",
-			"Do you have a name?",
-			"Tell me your name",
-		},
-		Responses: []string{
-			"My name is Dialogflow!",
-			"I have a name Dialogflow!",
-			"Dialogflow is my name",
-		},
+		project: ID,
 	}
 
-	intentDisplayName := "TAGHealthLabIntent"
-	_, err = dfBot.getIntentByDisplayName(ctx, intentDisplayName)
-	if err != nil {
-		_, err = dfBot.createIntentFromTrainingPhrases(ctx, intentDisplayName)
-	}
+	_, err = dfBot.getAgent(ctx)
 
 	return dfBot, err
 }
