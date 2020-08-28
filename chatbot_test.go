@@ -28,11 +28,7 @@ func (suite *TestSuite) TestAnswerQuestion() {
 	bot, err := fac.LoadChatBot(ctx, "tag-health-project")
 	suite.NoError(err)
 	time.Sleep(15 * time.Second)
-	ans := bot.AnswerQuestionByLangCode(context.Background(),"6ba7b810-9dad-11d1-80b4-00c04fd430c8", "age", "en")
-
-	contains := []string{
-		"what is your age?",
-		"how ur age",
-	}
-	suite.Contains(contains, ans)
+	answer, err := bot.AnswerQuestionByLangCode(context.Background(), "6ba7b810-9dad-11d1-80b4-00c04fd430c8", "ทดสอบ Chatbot", "en")
+	suite.NoError(err)
+	suite.NotNil(answer)
 }

@@ -14,10 +14,10 @@ type Bot struct {
 	Responses       []string
 }
 
-func (bot *Bot) AnswerQuestionByLangCode(ctx context.Context, sessionID, question string, langCode string) (answer string) {
+func (bot *Bot) AnswerQuestionByLangCode(ctx context.Context, sessionID, question string, langCode string) (fulfillmentMessages []*pb.Intent_Message, err error) {
 	sessionClient, err := sdk.NewSessionsClient(ctx)
 	if err != nil {
-		return err.Error()
+		return nil, err
 	}
 	defer func() { _ = sessionClient.Close() }()
 
@@ -29,12 +29,11 @@ func (bot *Bot) AnswerQuestionByLangCode(ctx context.Context, sessionID, questio
 
 	response, err := sessionClient.DetectIntent(ctx, &request)
 	if err != nil {
-		return err.Error()
+		return nil, err
 	}
 
-	queryResult := response.GetQueryResult()
-	fulfillmentText := queryResult.GetFulfillmentText()
-	return fulfillmentText
+	fulfillmentMessages = response.GetQueryResult().FulfillmentMessages
+	return fulfillmentMessages, nil
 }
 
 func (bot *Bot) getAgent(ctx context.Context) (agent *pb.Agent, err error) {
